@@ -9,9 +9,17 @@ module.exports = function(controller, config) {
   /*
    * The endpoints for subscription
    */
-  /* GET Create a subscription. */
+  /* GET Create a async subscription. */
   router.get('/create', function(req, res, next) {
     controller.create(req.eventData, function(err, result) {
+        if(err) return res.sendApiError(err.errorCode, err.message);
+        return res.sendApiResponse(result,202);
+    });
+  });
+
+   /* GET Create a sync subscription. */
+   router.get('/createSync', function(req, res, next) {
+    controller.createSync(req.eventData, function(err, result) {
         if(err) return res.sendApiError(err.errorCode, err.message);
         return res.sendApiResponse(result);
     });
