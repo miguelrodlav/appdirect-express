@@ -41,16 +41,8 @@ module.exports = function(controller, config) {
     });
   });
 
-  /* GET Cancel a async subscription. */
-  router.get('/cancel', function(req, res, next) {
-    controller.cancel(req.eventData, function(err, message) {
-        if(err) return res.sendApiError(err.errorCode, err.message);
-        return res.sendApiSuccess(message,202);
-    });
-  });
-
   /* GET Cancel a sync subscription. */
-  router.get('/cancelSync', function(req, res, next) {
+  router.get('/cancel', function(req, res, next) {
     controller.cancel(req.eventData, function(err, message) {
         if(err) return res.sendApiError(err.errorCode, err.message);
         return res.sendApiSuccess(message);
