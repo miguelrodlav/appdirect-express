@@ -29,7 +29,7 @@ module.exports = function(controller, config) {
   router.get('/change', function(req, res, next) {
     controller.change(req.eventData, function(err, result) {
         if(err) return res.sendApiError(err.errorCode, err.message);
-        return res.sendApiSuccess(result, 202);
+        return res.sendApiResponse(result, 202);
     });
   });
 
