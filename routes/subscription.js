@@ -25,21 +25,38 @@ module.exports = function(controller, config) {
     });
   });
 
-  /* GET Change a subscription. */
+  /* GET Change a async subscription. */
   router.get('/change', function(req, res, next) {
+    controller.change(req.eventData, function(err, result) {
+        if(err) return res.sendApiError(err.errorCode, err.message);
+        return res.sendApiSuccess(result, 202);
+    });
+  });
+
+  /* GET Change a sync subscription. */
+  router.get('/changeSync', function(req, res, next) {
     controller.change(req.eventData, function(err, result) {
         if(err) return res.sendApiError(err.errorCode, err.message);
         return res.sendApiSuccess(result);
     });
   });
 
-  /* GET Cancel a subscription. */
+  /* GET Cancel a async subscription. */
   router.get('/cancel', function(req, res, next) {
+    controller.cancel(req.eventData, function(err, message) {
+        if(err) return res.sendApiError(err.errorCode, err.message);
+        return res.sendApiSuccess(message,202);
+    });
+  });
+
+  /* GET Cancel a sync subscription. */
+  router.get('/cancelSync', function(req, res, next) {
     controller.cancel(req.eventData, function(err, message) {
         if(err) return res.sendApiError(err.errorCode, err.message);
         return res.sendApiSuccess(message);
     });
   });
+  
 
   /* GET Update status of a subscription. */
   router.get('/status', function(req, res, next) {
