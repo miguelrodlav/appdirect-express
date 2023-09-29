@@ -141,6 +141,7 @@ function obtainAccessToken(clientId, clientSecret, tokenUrl, callback) {
       },
       form: {
         grant_type: 'client_credentials',
+        scope: 'ROLE_APPLICATION',
       },
     },
     function (err, response, body) {
